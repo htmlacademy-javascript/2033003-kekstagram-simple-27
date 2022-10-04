@@ -1,25 +1,22 @@
 
-const FROM = 5;
-const BEFORE = 4;
-const VERIFIABLE_STRING_LENGTH = 20;
-const MAX_STRING_LENGTH = 19;
+const MIN = 2;
+const MAX = 24;
+const STRING = 'Проверяемая_строка';
+const MAX_STRING_LENGTH = 140;
 
 //the first part of the task
-function returnRandomInteger(from, before) {
-  if(from >= 0 && before >= 0){
-    if(from > before){
-      [from,before] = [before,from];
-    }
-    return Math.floor(Math.random() * (before - from + 1)) + from;
-  }
-  return from / before;
+function returnRandomInteger(min, max) {
+  if (min < 0 || max < 0 || typeof min !== 'number' || typeof max !== 'number') {return NaN;}
+  if(max < min){[min, max] = [max, min];}
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-console.log(returnRandomInteger(FROM, BEFORE));
+returnRandomInteger(MIN, MAX);
 
 //the second part of the task
-function checkMaxStringLength(verifiableStringLength, maxStringLength) {
-  return verifiableStringLength <= maxStringLength ? 'true' : 'false';
+function verifyStringLength(string, maxStringLength) {
+  if( typeof string !== 'string'){return null;}
+  return string.length <= maxStringLength || false;
 }
 
-checkMaxStringLength(VERIFIABLE_STRING_LENGTH, MAX_STRING_LENGTH);
+verifyStringLength(STRING, MAX_STRING_LENGTH);
