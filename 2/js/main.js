@@ -1,25 +1,22 @@
-//the first part of the task
-const FROM = 3;
-const BEFORE = 16;
 
-function returnRandomInteger(from, before) {
-  if (before <= from) {
-    return NaN;
-  }
-  const randomeInteger = Math.floor(Math.random() * (before - from)) + from;
-  return randomeInteger;
+const MIN = 2;
+const MAX = 24;
+const STRING = 'Проверяемая_строка';
+const MAX_STRING_LENGTH = 140;
+
+//the first part of the task
+function returnRandomInteger(min, max) {
+  if (min < 0 || max < 0 || typeof min !== 'number' || typeof max !== 'number') {return NaN;}
+  if(max < min){[min, max] = [max, min];}
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-returnRandomInteger(FROM, BEFORE);
+returnRandomInteger(MIN, MAX);
 
 //the second part of the task
-const VERIFIABLE_STRING_LENGTH = 18;
-const MAX_STRING_LENGTH = 19;
-
-function checkMaxStringLength(verifiableStringLength, maxStringLength) {
-  let result;
-  verifiableStringLength = maxStringLength ? result = true : result = false;
-  return result;
+function verifyStringLength(string, maxStringLength) {
+  if( typeof string !== 'string'){return null;}
+  return string.length <= maxStringLength || false;
 }
 
-checkMaxStringLength(VERIFIABLE_STRING_LENGTH, MAX_STRING_LENGTH);
+verifyStringLength(STRING, MAX_STRING_LENGTH);
