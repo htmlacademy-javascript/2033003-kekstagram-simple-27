@@ -27,15 +27,15 @@ function getRandomArrayElement(arr){
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-const createDescriptionPhoto = (integer, maxRandom, minRandom) => ({
+const createDescriptionPhoto = (integer, maxRandom, minRandom, arrDescriptions) => ({
   id: integer,
   url: `photos/${integer}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
+  description: getRandomArrayElement(arrDescriptions),
   likes: returnRandomInteger(maxRandom,minRandom),
   comments: returnRandomInteger(maxRandom)
 });
 
-const descriptionPhotos = Array.from({ length: MAX_COUNT_OBJECTS }, (_element, index) => createDescriptionPhoto(index + 1, MAX_RANDOM, MIN_RANDOM));
+const descriptionPhotos = Array.from({ length: MAX_COUNT_OBJECTS }, (_element, index) => createDescriptionPhoto(index + 1, MAX_RANDOM, MIN_RANDOM,DESCRIPTIONS));
 
 // eslint-disable-next-line no-console
 console.log(descriptionPhotos);
