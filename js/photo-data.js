@@ -9,6 +9,6 @@ const createDataPhoto = (integer, maxRandom, minRandom, arrDescriptions) => ({
   comments: returnRandomInteger(maxRandom)
 });
 
-const createDataPhotos = Array.from({ length: MAX_COUNT_OBJECTS }, (_element, index) => createDataPhoto(index + 1, MAX_RANDOM, MIN_RANDOM,DESCRIPTIONS));
+const createDataPhotos = ()=> Array.from({ length: MAX_COUNT_OBJECTS }, (_element, index) => createDataPhoto(index + 1, MAX_RANDOM, MIN_RANDOM,DESCRIPTIONS));
 
 export {createDataPhotos};
