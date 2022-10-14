@@ -1,5 +1,5 @@
 import {returnRandomInteger, getRandomArrayElement} from './util.js';
-import {MAX_COUNT_OBJECTS,MIN_RANDOM,MAX_RANDOM,DESCRIPTIONS} from './static-data.js';
+import {MAX_COUNT_OBJECTS,MIN_RANDOM,MAX_RANDOM,DESCRIPTIONS} from './CONSTANTS.js';
 
 const createDataPhoto = (integer, maxRandom, minRandom, arrDescriptions) => ({
   id: integer,
