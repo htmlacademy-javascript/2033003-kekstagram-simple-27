@@ -1,5 +1,5 @@
 import {returnRandomInteger, getRandomArrayElement} from './util.js';
-import {MAX_COUNT_OBJECTS,MIN_RANDOM,MAX_RANDOM,DESCRIPTIONS} from './CONSTANTS.js';
+import {MIN_RANDOM,MAX_RANDOM,DESCRIPTIONS} from './CONSTANTS.js';
 
 const createDataPhoto = (integer, maxRandom, minRandom, arrDescriptions) => ({
   id: integer,
@@ -9,6 +9,6 @@ const createDataPhoto = (integer, maxRandom, minRandom, arrDescriptions) => ({
   comments: returnRandomInteger(maxRandom)
 });
 
-const createDataPhotos = ()=> Array.from({ length: MAX_COUNT_OBJECTS }, (_element, index) => createDataPhoto(index + 1, MAX_RANDOM, MIN_RANDOM,DESCRIPTIONS));
+const createDataPhotos = (count)=> Array.from({ length: count }, (_element, index) => createDataPhoto(index + 1, MAX_RANDOM, MIN_RANDOM,DESCRIPTIONS));
 
 export {createDataPhotos};
