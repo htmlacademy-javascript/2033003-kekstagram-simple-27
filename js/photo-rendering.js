@@ -1,17 +1,3 @@
-import { createDataPhotos } from './photo-data.js';
-import { MAX_COUNT_OBJECTS } from './CONSTANTS.js';
-
-const photoData = createDataPhotos(MAX_COUNT_OBJECTS);
-
-const parameters = {
-  containerClass: '.pictures',
-  templateId: '#picture',
-  templateClass: '.picture',
-  urlClass: '.picture__img',
-  likesClass: '.picture__likes',
-  commentsClass: '.picture__comments',
-};
-
 function creatingPhotoElement(data,params) {
   const pictureContainer = document.querySelector (params.containerClass);
   const pictureTemplate = document.querySelector (params.templateId).content.querySelector (params.templateClass).cloneNode (true);
@@ -28,5 +14,4 @@ function creatingPhotoElement(data,params) {
   pictureContainer.append(pictureFragment);
 }
 
-creatingPhotoElement(photoData,parameters);
 export { creatingPhotoElement };
