@@ -1,24 +1,17 @@
-import { createDataPhotos } from './photo-data.js';
-import { MAX_COUNT_OBJECTS } from './CONSTANTS.js';
+function creatingPhotoElement(data,params) {
+  const pictureContainer = document.querySelector (params.containerClass);
+  const pictureTemplate = document.querySelector (params.templateId).content.querySelector (params.templateClass).cloneNode (true);
+  const pictureFragment = document.createDocumentFragment ();
 
-const photosData = createDataPhotos(MAX_COUNT_OBJECTS);
+  data.forEach(({url, likes, comments}) => {
+    const pictureElement = pictureTemplate.cloneNode(true);
 
-const creatingPhotoElement = () => {
-  const pictureContainer = document.querySelector('.pictures');
-  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-  const photoFragment = document.createDocumentFragment();
-
-  photosData.forEach(({url, likes, comments}) => {
-    const photoElement = pictureTemplate.cloneNode(true);
-
-    photoElement.querySelector('.picture__img').url = url;
-    photoElement.querySelector('.picture__likes').textContent = likes;
-    photoElement.querySelector('.picture__comments').textContent = comments;
-
-    photoFragment.append(photoElement);
+    pictureElement.querySelector (params.urlClass).url = url;
+    pictureElement.querySelector (params.likesClass).textContent = likes;
+    pictureElement.querySelector (params.commentsClass).textContent = comments;
+    pictureFragment.append (pictureElement);
   });
-  pictureContainer.append(photoFragment);
-};
+  pictureContainer.append(pictureFragment);
+}
 
 export { creatingPhotoElement };
-

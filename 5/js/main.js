@@ -1,4 +1,5 @@
 import {createDataPhotos} from'./photo-data.js';
 import {creatingPhotoElement} from'./photo-rendering.js';
-createDataPhotos();
-creatingPhotoElement();
+import {parameters} from'./picture-parameters.js';
+
+creatingPhotoElement(createDataPhotos(),parameters);
