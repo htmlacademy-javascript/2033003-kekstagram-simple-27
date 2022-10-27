@@ -1,6 +1,6 @@
 import { isEscapeKey } from '../util/util.js';
 
-const createEventHandlers = ({pictureForm,uploadFile,cancelUpload}) => {
+const createPictureFormEventHandlers = ({pictureForm,uploadFile,cancelUpload}) => {
   const uploadPicture = document.querySelector(uploadFile);
   const cancelUploadPictureButton = document.querySelector(cancelUpload);
 
@@ -32,4 +32,4 @@ const createEventHandlers = ({pictureForm,uploadFile,cancelUpload}) => {
     document.addEventListener('keydown', onPopupEscKeydown);
   }
 };
-export {createEventHandlers};
+export {createPictureFormEventHandlers};

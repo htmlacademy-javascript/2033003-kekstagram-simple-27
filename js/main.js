@@ -5,6 +5,7 @@ import {pictureParameters} from'./picture/picture-parameters.js';
 import {createEventHandlers} from'./picture_form/picture-form-events.js';
 import {pictureformParameters} from'./picture_form/picture-form-parameters.js';
 
+import {}
 
 creatingPictureElement(createDataPhotos(),pictureParameters);
-createEventHandlers(pictureformParameters);
+createPictureFormEventHandlers(pictureformParameters);
