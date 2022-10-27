@@ -1,4 +1,4 @@
-function creatingPhotoElement(data,params) {
+function creatingPictureElement(data,params) {
   const pictureContainer = document.querySelector (params.containerClass);
   const pictureTemplate = document.querySelector (params.templateId).content.querySelector (params.templateClass).cloneNode (true);
   const pictureFragment = document.createDocumentFragment ();
@@ -14,4 +14,4 @@ function creatingPhotoElement(data,params) {
   pictureContainer.append(pictureFragment);
 }
 
-export { creatingPhotoElement };
+export { creatingPictureElement };

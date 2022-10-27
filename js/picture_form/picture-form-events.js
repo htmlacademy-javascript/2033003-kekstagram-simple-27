@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey } from '../util/util.js';
 
 const createEventHandlers = ({pictureForm,uploadFile,cancelUpload}) => {
   const uploadPicture = document.querySelector(uploadFile);
