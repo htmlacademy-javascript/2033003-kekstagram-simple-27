@@ -1,10 +1,10 @@
-import {createDataPhotos} from'./photo-data.js';
-import {creatingPhotoElement} from'./photo-rendering.js';
-import {pictureParameters} from'./picture-parameters.js';
-import {createEventHandlers} from'./picture-form-events.js';
-import {pictureformParameters} from'./picture-form-parameters.js';
-import {addValidator} from'./validator.js';
+import {createDataPhotos} from'./picture/picture-data.js';
+import {creatingPictureElement} from'./picture/picture-rendering.js';
+import {pictureParameters} from'./picture/picture-parameters.js';
 
-creatingPhotoElement(createDataPhotos(),pictureParameters);
+import {createEventHandlers} from'./picture_form/picture-form-events.js';
+import {pictureformParameters} from'./picture_form/picture-form-parameters.js';
+
+
+creatingPictureElement(createDataPhotos(),pictureParameters);
 createEventHandlers(pictureformParameters);
-addValidator(pictureformParameters);
