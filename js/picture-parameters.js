@@ -1,4 +1,4 @@
-const parameters = {
+const pictureParameters = {
   containerClass: '.pictures',
   templateId: '#picture',
   templateClass: '.picture',
@@ -6,4 +6,4 @@ const parameters = {
   likesClass: '.picture__likes',
   commentsClass: '.picture__comments',
 };
-export {parameters};
+export {pictureParameters};
