@@ -1,5 +1,10 @@
-import {createDataPhotos} from'./photo-data.js';
-import {creatingPhotoElement} from'./photo-rendering.js';
-import {parameters} from'./picture-parameters.js';
+import {createDataPhotos} from'./picture/picture-data.js';
+import {creatingPictureElement} from'./picture/picture-rendering.js';
+import {pictureParameters} from'./picture/picture-parameters.js';
 
-creatingPhotoElement(createDataPhotos(),parameters);
+import {createEventHandlers} from'./picture_form/picture-form-events.js';
+import {pictureformParameters} from'./picture_form/picture-form-parameters.js';
+
+
+creatingPictureElement(createDataPhotos(),pictureParameters);
+createEventHandlers(pictureformParameters);
