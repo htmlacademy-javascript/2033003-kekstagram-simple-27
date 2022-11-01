@@ -7,7 +7,7 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   const sliderElement = document.querySelector(sliderClass);
   const sliderValueElement = document.querySelector(sliderValue);
   const inputElements = document.querySelectorAll(inputElement);
-  let selectedEffect = inputElements[0];
+  let selectedEffect = filters[inputElements[0].value];
 
   noUiSlider.create(sliderElement, {
     range: {
@@ -66,7 +66,6 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   };
 
   const updateIntensityEffect = () => {
-
     sliderContainerElement.removeAttribute('style');
     sliderContainerElement.style.display = selectedEffect.display;
     let styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()})`;
@@ -76,7 +75,6 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
       styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}px)`;
     }
     document.querySelector(uploadPreviewClass).style.filter = styleString;
-
   };
 
   const setIntensityEffect = (effectName) => {
@@ -100,11 +98,13 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   const onUploadEffects = (evt) => {
     if (evt.target.tagName === 'INPUT') {
       inputElements.forEach((_element, index) => {
+
         if (inputElements[index].type === 'radio' && inputElements[index].checked) {
           setEffect(inputElements[index].value, true);
           setIntensityEffect(inputElements[index].value);
         } else {
           setEffect(inputElements[index].value, false);
+          //setIntensityEffect(_element[0].value);
         }
       });
     }
@@ -117,7 +117,7 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
 
   uploadScaleElement.addEventListener('click', onUploadScale);
   uploadEffectsElement.addEventListener('change', onUploadEffects);
-  sliderElement.noUiSlider.on('change', onSliderChange);
+  sliderElement.noUiSlider.on('update', onSliderChange);
 };
 
 export { createPictureSettings };
