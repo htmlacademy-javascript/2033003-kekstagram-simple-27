@@ -6,8 +6,8 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   const sliderContainerElement = document.querySelector(sliderContainer);
   const sliderElement = document.querySelector(sliderClass);
   const sliderValueElement = document.querySelector(sliderValue);
-
-  let selectedEffect;
+  const inputElements = document.querySelectorAll(inputElement);
+  let selectedEffect = inputElements[0];
 
   noUiSlider.create(sliderElement, {
     range: {
@@ -66,17 +66,17 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   };
 
   const updateIntensityEffect = () => {
-    if (selectedEffect !== undefined) {
-      sliderContainerElement.removeAttribute('style');
-      sliderContainerElement.style.display = selectedEffect.display;
-      let styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()})`;
-      if (selectedEffect.filter === 'invert') {
-        styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}%)`;
-      } else if (selectedEffect.filter === 'blur') {
-        styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}px)`;
-      }
-      document.querySelector(uploadPreviewClass).style.filter = styleString;
+
+    sliderContainerElement.removeAttribute('style');
+    sliderContainerElement.style.display = selectedEffect.display;
+    let styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()})`;
+    if (selectedEffect.filter === 'invert') {
+      styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}%)`;
+    } else if (selectedEffect.filter === 'blur') {
+      styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}px)`;
     }
+    document.querySelector(uploadPreviewClass).style.filter = styleString;
+
   };
 
   const setIntensityEffect = (effectName) => {
@@ -99,13 +99,12 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
 
   const onUploadEffects = (evt) => {
     if (evt.target.tagName === 'INPUT') {
-      const rowElements = document.querySelectorAll(inputElement);
-      rowElements.forEach((_element, index) => {
-        if (rowElements[index].type === 'radio' && rowElements[index].checked) {
-          setEffect(rowElements[index].value, true);
-          setIntensityEffect(rowElements[index].value);
+      inputElements.forEach((_element, index) => {
+        if (inputElements[index].type === 'radio' && inputElements[index].checked) {
+          setEffect(inputElements[index].value, true);
+          setIntensityEffect(inputElements[index].value);
         } else {
-          setEffect(rowElements[index].value, false);
+          setEffect(inputElements[index].value, false);
         }
       });
     }
@@ -118,7 +117,7 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
 
   uploadScaleElement.addEventListener('click', onUploadScale);
   uploadEffectsElement.addEventListener('change', onUploadEffects);
-  sliderElement.noUiSlider.on('update', onSliderChange);
+  sliderElement.noUiSlider.on('change', onSliderChange);
 };
 
 export { createPictureSettings };
