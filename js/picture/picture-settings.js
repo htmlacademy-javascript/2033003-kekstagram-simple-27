@@ -7,7 +7,11 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   const sliderElement = document.querySelector(sliderClass);
   const sliderValueElement = document.querySelector(sliderValue);
   const inputElements = document.querySelectorAll(inputElement);
+<<<<<<< HEAD
   let selectedEffect = filters[inputElements[0].value];
+=======
+  let selectedEffect = inputElements[0];
+>>>>>>> b128e5fa2660574bda3d46d814816e452e601c82
 
   noUiSlider.create(sliderElement, {
     range: {
@@ -66,6 +70,10 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   };
 
   const updateIntensityEffect = () => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> b128e5fa2660574bda3d46d814816e452e601c82
     sliderContainerElement.removeAttribute('style');
     sliderContainerElement.style.display = selectedEffect.display;
     let styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()})`;
@@ -75,6 +83,10 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
       styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}px)`;
     }
     document.querySelector(uploadPreviewClass).style.filter = styleString;
+<<<<<<< HEAD
+=======
+
+>>>>>>> b128e5fa2660574bda3d46d814816e452e601c82
   };
 
   const setIntensityEffect = (effectName) => {
@@ -98,13 +110,19 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   const onUploadEffects = (evt) => {
     if (evt.target.tagName === 'INPUT') {
       inputElements.forEach((_element, index) => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> b128e5fa2660574bda3d46d814816e452e601c82
         if (inputElements[index].type === 'radio' && inputElements[index].checked) {
           setEffect(inputElements[index].value, true);
           setIntensityEffect(inputElements[index].value);
         } else {
           setEffect(inputElements[index].value, false);
+<<<<<<< HEAD
           //setIntensityEffect(_element[0].value);
+=======
+>>>>>>> b128e5fa2660574bda3d46d814816e452e601c82
         }
       });
     }
@@ -117,7 +135,7 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
 
   uploadScaleElement.addEventListener('click', onUploadScale);
   uploadEffectsElement.addEventListener('change', onUploadEffects);
-  sliderElement.noUiSlider.on('update', onSliderChange);
+  sliderElement.noUiSlider.on('change', onSliderChange);
 };
 
 export { createPictureSettings };
