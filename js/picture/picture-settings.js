@@ -66,15 +66,17 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
   };
 
   const updateIntensityEffect = () => {
-    sliderContainerElement.removeAttribute('style');
-    sliderContainerElement.style.display = selectedEffect.display;
-    let styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()})`;
-    if (selectedEffect.filter === 'invert') {
-      styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}%)`;
-    } else if (selectedEffect.filter === 'blur') {
-      styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}px)`;
+    if (selectedEffect !== undefined) {
+      sliderContainerElement.removeAttribute('style');
+      sliderContainerElement.style.display = selectedEffect.display;
+      let styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()})`;
+      if (selectedEffect.filter === 'invert') {
+        styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}%)`;
+      } else if (selectedEffect.filter === 'blur') {
+        styleString = `${selectedEffect.filter}(${sliderElement.noUiSlider.get()}px)`;
+      }
+      document.querySelector(uploadPreviewClass).style.filter = styleString;
     }
-    document.querySelector(uploadPreviewClass).style.filter = styleString;
   };
 
   const setIntensityEffect = (effectName) => {
@@ -116,7 +118,7 @@ const createPictureSettings = ({ decreaseButtonElement, zoomButtonElement, contr
 
   uploadScaleElement.addEventListener('click', onUploadScale);
   uploadEffectsElement.addEventListener('change', onUploadEffects);
-  sliderElement.noUiSlider.on('change', onSliderChange);
+  sliderElement.noUiSlider.on('update', onSliderChange);
 };
 
 export { createPictureSettings };
