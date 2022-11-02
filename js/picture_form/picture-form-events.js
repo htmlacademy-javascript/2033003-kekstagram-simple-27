@@ -1,6 +1,9 @@
 import { isEscapeKey } from '../util/util.js';
+import {resetScale} from '../picture/picture-scale.js';
+import {resetEffects} from '../picture/picture-effect.js';
 
 const createPictureFormEventHandlers = ({pictureForm,uploadFile,cancelUpload}) => {
+  const form = document.querySelector(pictureForm);
   const uploadPictureElement = document.querySelector(uploadFile);
   const cancelUploadPictureButtonElement = document.querySelector(cancelUpload);
 
@@ -20,14 +23,16 @@ const createPictureFormEventHandlers = ({pictureForm,uploadFile,cancelUpload}) =
   };
 
   function closeModal() {
-    document.querySelector(pictureForm).classList.add('hidden');
+    resetScale();
+    resetEffects();
     uploadPictureElement.value = '';
+    form.classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
     document.removeEventListener('keydown', onPopupEscKeydown);
   }
 
   function openModal() {
-    document.querySelector(pictureForm).classList.remove('hidden');
+    form.classList.remove('hidden');
     document.querySelector('body').classList.add('modal-open');
     document.addEventListener('keydown', onPopupEscKeydown);
   }
