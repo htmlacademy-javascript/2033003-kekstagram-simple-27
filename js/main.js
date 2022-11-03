@@ -5,7 +5,6 @@ import {pictureParameters} from'./picture/picture-parameters.js';
 import {createPictureFormEventHandlers} from'./picture_form/picture-form-events.js';
 import {pictureformParameters} from'./picture_form/picture-form-parameters.js';
 
-//import './picture/picture-settings.js';
 import './picture/picture-scale.js';
 import './picture/picture-effect.js';
 
