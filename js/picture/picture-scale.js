@@ -24,7 +24,7 @@ const onUploadScaleButtonClick = (evt) => {
             const newValue = pictureSizeValue - stepSize;
             scaleImage(newValue);
           }
-        } else if (evt.target.classList.contains(params.zoomButtonElement)) {
+        } else {
           if (pictureSizeValue < maxPictureSizeValue) {
             const newValue = pictureSizeValue + stepSize;
             scaleImage(newValue);
