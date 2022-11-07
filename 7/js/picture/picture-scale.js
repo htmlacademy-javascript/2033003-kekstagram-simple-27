@@ -6,7 +6,6 @@ const maxPictureSizeValue = document.querySelector(`.${params.controlValueElemen
 const minPictureSizeValue = document.querySelector(`.${params.controlValueElement}`).getAttribute(params.minLengthAttribute);
 
 const scaleImage = (scaleValue = DEFAULT_SCALE) =>{
-  console.log(document.querySelector('.img-upload__preview'));
   document.querySelector(params.uploadPreviewClass).style.transform = `scale(${scaleValue / 100})`;
   document.querySelector(`.${params.controlValueElement}`).value = `${scaleValue}%`;
 };
@@ -25,7 +24,7 @@ const onUploadScaleButtonClick = (evt) => {
             const newValue = pictureSizeValue - stepSize;
             scaleImage(newValue);
           }
-        } else if (evt.target.classList.contains(params.zoomButtonElement)) {
+        } else {
           if (pictureSizeValue < maxPictureSizeValue) {
             const newValue = pictureSizeValue + stepSize;
             scaleImage(newValue);
