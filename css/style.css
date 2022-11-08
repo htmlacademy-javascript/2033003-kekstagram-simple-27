@@ -1408,3 +1408,15 @@ main {
 .hidden {
   display: none;
 }
+
+.success-load{
+  margin-bottom: 10px;
+}
+
+.success-load__inner{
+  text-align: center;
+  background-color: #e90000;
+  display: grid;
+  grid-template-rows: auto;
+        grid-row-gap: 15px;
+}
