@@ -1,17 +1,17 @@
 function creatingPictureElement(data,params) {
-  const pictureContainer = document.querySelector (params.containerClass);
-  const pictureTemplate = document.querySelector (params.templateId).content.querySelector (params.templateClass).cloneNode (true);
+  const pictureContainerElement = document.querySelector (params.containerClass);
+  const pictureTemplateElement = document.querySelector (params.templateId).content.querySelector (params.templateClass).cloneNode (true);
   const pictureFragment = document.createDocumentFragment ();
 
   data.forEach(({url, likes, comments}) => {
-    const pictureElement = pictureTemplate.cloneNode(true);
+    const pictureElementClone = pictureTemplateElement.cloneNode(true);
 
-    pictureElement.querySelector (params.urlClass).src = url;
-    pictureElement.querySelector (params.likesClass).textContent = likes;
-    pictureElement.querySelector (params.commentsClass).textContent = comments;
-    pictureFragment.append (pictureElement);
+    pictureElementClone.querySelector (params.urlClass).src = url;
+    pictureElementClone.querySelector (params.likesClass).textContent = likes;
+    pictureElementClone.querySelector (params.commentsClass).textContent = comments;
+    pictureFragment.append (pictureElementClone);
   });
-  pictureContainer.append(pictureFragment);
+  pictureContainerElement.append(pictureFragment);
 }
 
 export { creatingPictureElement };
