@@ -1420,3 +1420,9 @@ main {
   grid-template-rows: auto;
         grid-row-gap: 15px;
 }
+
+.form__error {
+  display: block;
+  font-size: 0.85em;
+  color: #c00;
+}

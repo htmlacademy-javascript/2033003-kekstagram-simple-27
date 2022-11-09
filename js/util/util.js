@@ -5,7 +5,7 @@ const returnRandomInteger = (max, min = 0) => {
 };
 
 const verifyStringLength = (string, minStringLength, maxStringLength) => {
-  if (typeof string !== 'string' || typeof maxStringLength !== 'number') { return null; }
+  if (typeof string !== 'string' || typeof minStringLength !== 'number' || typeof maxStringLength !== 'number') { return null; }
   return string.length >= minStringLength && string.length <= maxStringLength || false;
 };
 

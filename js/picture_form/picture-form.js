@@ -1,61 +1,47 @@
-import '../../vendor/pristine/pristine.min.js';
 import { isEscapeKey, verifyStringLength } from '../util/util.js';
 import { resetScale } from '../picture/picture-scale.js';
 import { resetEffects } from '../picture/picture-effect.js';
 import { pictureformParameters as params } from '../picture_form/picture-form-parameters.js';
 import { sendData } from '../api.js';
 import { MIN_STRING_LENGTH, MAX_STRING_LENGTH } from '../CONSTANTS.js';
-import { showSaveErrorAlert } from '../error.js';
+import { showErrorSaveAlert } from '../error.js';
 
 const body = document.querySelector('body');
 const mainFormElement = document.querySelector(params.mainForm);
 const pictureFormElement = document.querySelector(params.pictureForm);
 const commentElement = document.querySelector(params.comment);
 
-const eventListeners = [{
-  selector: params.cancelUpload,
-  eventType: 'click',
-  cb: () => closeModal(),
-}, {
-  selector: params.uploadFile,
-  eventType: 'change',
-  cb: () => openModal(),
-}, {
-  selector: params.save,
-  eventType: 'click',
-  cb: (evt) => saveForm(evt),
-}];
-
-const onPopupEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeModal();
-  }
-};
-
-const blockSubmitButton = () =>{
+function blockSubmitButton() {
   document.querySelector(params.save).disabled = true;
-};
-const unblockSubmitButton = () =>{
+}
+const unblockSubmitButton = () => {
   document.querySelector(params.save).disabled = false;
 };
 
-function saveForm(evt) {
+const setOnFormSubmit = (async (data) => {
+  await sendData(onCloseModalClick, showErrorSaveAlert, new FormData(data));
+});
+
+const onSaveFormClick = (evt) => {
   evt.preventDefault();
   const isValid = verifyStringLength(commentElement.value, MIN_STRING_LENGTH, MAX_STRING_LENGTH);
   if (isValid) {
     blockSubmitButton();
-    sendData(
-      () => closeModal(),
-      () => showSaveErrorAlert(),
-      new FormData(mainFormElement),
-    );
+    setOnFormSubmit(mainFormElement);
   }
-}
+};
+const onPopupEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    onCloseModalClick();
+  }
+};
+
 function resetForm() {
   mainFormElement.reset();
 }
-function closeModal() {
+
+function onCloseModalClick() {
   resetScale();
   resetEffects();
   resetForm();
@@ -65,7 +51,7 @@ function closeModal() {
   document.removeEventListener('keydown', onPopupEscKeydown);
 }
 
-function openModal() {
+function onOpenModalChange() {
   pictureFormElement.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscKeydown);
@@ -78,6 +64,20 @@ const addEventListeners = (arr) => {
   });
 };
 
+const eventListeners = [{
+  selector: params.cancelUpload,
+  eventType: 'click',
+  cb: () => onCloseModalClick(),
+}, {
+  selector: params.uploadFile,
+  eventType: 'change',
+  cb: () => onOpenModalChange(),
+}, {
+  selector: params.mainForm,
+  eventType: 'submit',
+  cb: (evt) => onSaveFormClick(evt),
+}];
+
 addEventListeners(eventListeners);
 
-export{blockSubmitButton, unblockSubmitButton};
+export { blockSubmitButton, unblockSubmitButton };

@@ -1,7 +1,7 @@
 import { pictureformParameters as params } from './picture_form/picture-form-parameters.js';
 import { isEscapeKey,IsOutOfBoundClick, addEventListeners } from './util/util.js';
 
-const body = document.querySelector('body');
+const bodyElement = document.querySelector('body');
 const errorTemplateElement = document.querySelector(params.errorTemplateId);
 const errorTemplateClass = errorTemplateElement.content.querySelector(params.errorClass).cloneNode(true);
 const errorElementClone = errorTemplateClass.cloneNode(true);
@@ -41,7 +41,7 @@ function onOutOfBoundClick(evt) {
   }
 }
 
-const showSaveErrorAlert = () => {
+const showErrorSaveAlert = () => {
   addEventListeners(eventListeners);
   showErrorWindow();
 };
@@ -52,13 +52,13 @@ const showErrorLoadAlert = () => {
 };
 
 function closeErrorWindow() {
-  body.removeChild(errorElementClone);
+  bodyElement.removeChild(errorElementClone);
   document.removeEventListener('keydown', onPopupEscKeydown);
   document.removeEventListener('click', onOutOfBoundClick);
   document.removeEventListener('click', onHideErrorClick);
 }
 function showErrorWindow() {
   errorFragment.append(errorElementClone);
-  body.append(errorFragment);
+  bodyElement.append(errorFragment);
 }
-export { showSaveErrorAlert, showErrorLoadAlert };
+export { showErrorSaveAlert, showErrorLoadAlert };
