@@ -11,6 +11,7 @@ const mainFormElement = document.querySelector(params.mainForm);
 const pictureFormElement = document.querySelector(params.pictureForm);
 const commentElement = document.querySelector(params.comment);
 
+
 function blockSubmitButton() {
   document.querySelector(params.save).disabled = true;
 }
@@ -30,11 +31,19 @@ const onSaveFormClick = (evt) => {
     setOnFormSubmit(mainFormElement);
   }
 };
-const onPopupEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+const onPictureFormEscKeydown = (evt) => {
+  if (isEscapeKey(evt) && body.classList) {
     evt.preventDefault();
     onCloseModalClick();
   }
+};
+
+const removeOnPictureFormEscKeydown = () =>{
+  document.removeEventListener('keydown', onPictureFormEscKeydown);
+};
+
+const addOnPictureFormEscKeydown = () =>{
+  document.addEventListener('keydown', onPictureFormEscKeydown);
 };
 
 function resetForm() {
@@ -45,16 +54,16 @@ function onCloseModalClick() {
   resetScale();
   resetEffects();
   resetForm();
+  removeOnPictureFormEscKeydown();
   document.querySelector(params.uploadFile).value = '';
   pictureFormElement.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onPopupEscKeydown);
 }
 
 function onOpenModalChange() {
   pictureFormElement.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onPopupEscKeydown);
+  addOnPictureFormEscKeydown();
 }
 
 const addEventListeners = (arr) => {
@@ -80,4 +89,4 @@ const eventListeners = [{
 
 addEventListeners(eventListeners);
 
-export { blockSubmitButton, unblockSubmitButton };
+export { blockSubmitButton, unblockSubmitButton, removeOnPictureFormEscKeydown, addOnPictureFormEscKeydown };

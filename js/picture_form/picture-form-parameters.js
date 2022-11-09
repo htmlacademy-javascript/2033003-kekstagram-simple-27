@@ -8,6 +8,10 @@ const pictureformParameters = {
   errorTemplateId:'#error',
   errorClass:'.error',
   errorInner: '.error__inner',
-  errorButton:'.error__button'
+  errorButton:'.error__button',
+  successTemplateId:'#success',
+  successClass:'.success',
+  successInner: '.success__inner',
+  successButton:'.success__button'
 };
 export {pictureformParameters};

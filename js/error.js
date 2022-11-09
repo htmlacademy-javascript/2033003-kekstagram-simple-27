@@ -1,4 +1,5 @@
 import { pictureformParameters as params } from './picture_form/picture-form-parameters.js';
+import { addOnPictureFormEscKeydown } from './picture_form/picture-form.js';
 import { isEscapeKey,IsOutOfBoundClick, addEventListeners } from './util/util.js';
 
 const bodyElement = document.querySelector('body');
@@ -15,7 +16,7 @@ const eventListeners = [{
 }, {
   selector: 'document',
   eventType: 'keydown',
-  cb: onPopupEscKeydown,
+  cb: onErrorElementEscKeydown,
 }, {
   selector: 'document',
   eventType: 'click',
@@ -27,7 +28,7 @@ function onHideErrorClick(evt){
   closeErrorWindow();
 }
 
-function onPopupEscKeydown(evt){
+function onErrorElementEscKeydown(evt){
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeErrorWindow();
@@ -35,8 +36,7 @@ function onPopupEscKeydown(evt){
 }
 
 function onOutOfBoundClick(evt) {
-  const withinBoundaries = IsOutOfBoundClick(evt,params.errorInner);
-  if (!withinBoundaries) {
+  if (!IsOutOfBoundClick(evt,params.successInner)) {
     closeErrorWindow();
   }
 }
@@ -53,12 +53,14 @@ const showErrorLoadAlert = () => {
 
 function closeErrorWindow() {
   bodyElement.removeChild(errorElementClone);
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('keydown', onErrorElementEscKeydown);
   document.removeEventListener('click', onOutOfBoundClick);
   document.removeEventListener('click', onHideErrorClick);
+  addOnPictureFormEscKeydown();
 }
 function showErrorWindow() {
   errorFragment.append(errorElementClone);
   bodyElement.append(errorFragment);
 }
-export { showErrorSaveAlert, showErrorLoadAlert };
+
+export { showErrorSaveAlert, showErrorLoadAlert};

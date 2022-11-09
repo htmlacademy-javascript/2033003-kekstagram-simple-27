@@ -1,5 +1,6 @@
 import { showErrorLoadAlert } from './error.js';
-import { unblockSubmitButton } from './picture_form/picture-form.js';
+import { unblockSubmitButton, removeOnPictureFormEscKeydown } from './picture_form/picture-form.js';
+import { showSuccessSaveAlert } from './success.js';
 
 async function getPictures() {
   const response = await fetch('https://27.javascript.pages.academy/kekstagram-simple/data');
@@ -29,9 +30,11 @@ async function sendPictures(onSuccess, onFail, body) {
   if (response.ok) {
     onSuccess();
     unblockSubmitButton();
+    showSuccessSaveAlert();
   } else {
     onFail();
     unblockSubmitButton();
+    removeOnPictureFormEscKeydown();
   }
 }
 
@@ -40,6 +43,7 @@ const sendData = (onSuccess, onFail, body) => {
     .catch(() => {
       onFail();
       unblockSubmitButton();
+      removeOnPictureFormEscKeydown();
     });
 };
 
