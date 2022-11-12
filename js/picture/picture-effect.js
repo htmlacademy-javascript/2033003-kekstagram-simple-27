@@ -6,7 +6,7 @@ import { addClassToElement, removeClassFromElement } from '../util/util.js';
 const imageElement = document.querySelector(paramsScale.uploadPreviewClass);
 const formElement = document.querySelector(paramsForm.mainForm);
 const sliderElement = document.querySelector(paramsEffect.sliderClass);
-const effectLevel = document.querySelector(paramsEffect.sliderValue);
+const effectLevelElement = document.querySelector(paramsEffect.sliderValue);
 
 const DEFAULT_EFFECT = paramsEffect.effects[0];
 let chosenEffect = DEFAULT_EFFECT;
@@ -51,14 +51,14 @@ const onFormChange = (evt) =>{
 const onSliderUpdate = () =>{
   imageElement.style.filter = 'none';
   imageElement.className = paramsScale.uploadPreviewClassName;
-  effectLevel.value = '';
+  effectLevelElement.value = '';
   if(isDefault()){
     return;
   }
   const sliderValue = sliderElement.noUiSlider.get();
   imageElement.style.filter = `${chosenEffect.filter}(${sliderValue}${chosenEffect.unit})`;
   addClassToElement(paramsScale.uploadPreviewClass,`effects__preview--${chosenEffect.name}`);
-  effectLevel.value = sliderValue;
+  effectLevelElement.value = sliderValue;
 };
 
 const resetEffects = () =>{

@@ -1,15 +1,15 @@
 import { pictureformParameters as params } from './picture_form/picture-form-parameters.js';
-import { addEventListeners, isEscapeKey, IsOutOfBoundClick } from './util/util.js';
+import { addEventListeners, isEscapeKey, isOutOfBoundClick } from './util/util.js';
 
 const bodyElement = document.querySelector('body');
 const successTemplateElement = document.querySelector(params.successTemplateId);
-const successTemplateClass = successTemplateElement.content.querySelector(params.successClass).cloneNode(true);
-const successElementClone = successTemplateClass.cloneNode(true);
-const closeSuccessButton = successElementClone.querySelector(params.successButton);
+const successCloneTemplateElement = successTemplateElement.content.querySelector(params.successClass).cloneNode(true);
+const successCloneElement = successCloneTemplateElement.cloneNode(true);
+const closeSuccessButtonElement = successCloneElement.querySelector(params.successButton);
 const successFragment = document.createDocumentFragment();
 
 const eventListeners = [{
-  selector: closeSuccessButton,
+  selector: closeSuccessButtonElement,
   eventType: 'click',
   cb: onHideSuccessClick,
 }, {
@@ -34,28 +34,27 @@ function onSuccessElementEscKeydown(evt){
   }
 }
 
-function onOutOfBoundClick(evt) {
-  if (!IsOutOfBoundClick(evt,params.successInner)) {
+function onOutOfBoundClick(evt){
+  if (!isOutOfBoundClick(evt,params.successInner)) {
     closeSuccessWindow();
   }
 }
 
 function closeSuccessWindow() {
-  bodyElement.removeChild(successElementClone);
+  bodyElement.removeChild(successCloneElement);
   document.removeEventListener('keydown', onSuccessElementEscKeydown);
   document.removeEventListener('click', onOutOfBoundClick);
   document.removeEventListener('click', onHideSuccessClick);
 }
 
+const showSuccessWindow = () => {
+  successFragment.append(successCloneElement);
+  bodyElement.append(successFragment);
+};
+
 const showSuccessSaveAlert = () => {
   addEventListeners(eventListeners);
   showSuccessWindow();
 };
-
-function showSuccessWindow() {
-  successFragment.append(successElementClone);
-  bodyElement.append(successFragment);
-}
-
 
 export { showSuccessSaveAlert };

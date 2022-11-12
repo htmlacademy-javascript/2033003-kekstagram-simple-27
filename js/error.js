@@ -1,16 +1,16 @@
 import { pictureformParameters as params } from './picture_form/picture-form-parameters.js';
 import { addOnPictureFormEscKeydown } from './picture_form/picture-form.js';
-import { isEscapeKey,IsOutOfBoundClick, addEventListeners, removeClassFromElement } from './util/util.js';
+import { isEscapeKey,isOutOfBoundClick, addEventListeners, removeClassFromElement } from './util/util.js';
 
 const bodyElement = document.querySelector('body');
 const errorTemplateElement = document.querySelector(params.errorTemplateId);
-const errorTemplateClass = errorTemplateElement.content.querySelector(params.errorClass).cloneNode(true);
-const errorElementClone = errorTemplateClass.cloneNode(true);
-const closeErrorButton = errorElementClone.querySelector(params.errorButton);
+const errorCloneTemplateElement = errorTemplateElement.content.querySelector(params.errorClass).cloneNode(true);
+const errorCloneElement = errorCloneTemplateElement.cloneNode(true);
+const closeErrorButtonElement = errorCloneElement.querySelector(params.errorButton);
 const errorFragment = document.createDocumentFragment();
 
 const eventListeners = [{
-  selector: closeErrorButton,
+  selector: closeErrorButtonElement,
   eventType: 'click',
   cb: onHideErrorClick,
 }, {
@@ -36,7 +36,7 @@ function onErrorElementEscKeydown(evt){
 }
 
 function onOutOfBoundClick(evt) {
-  if (!IsOutOfBoundClick(evt,params.successInner)) {
+  if (!isOutOfBoundClick(evt, params.errorInner)) {
     closeErrorWindow();
   }
 }
@@ -51,14 +51,14 @@ const showErrorLoadAlert = () => {
 };
 
 function closeErrorWindow() {
-  bodyElement.removeChild(errorElementClone);
+  bodyElement.removeChild(errorCloneElement);
   document.removeEventListener('keydown', onErrorElementEscKeydown);
   document.removeEventListener('click', onOutOfBoundClick);
   document.removeEventListener('click', onHideErrorClick);
   addOnPictureFormEscKeydown();
 }
 function showErrorWindow() {
-  errorFragment.append(errorElementClone);
+  errorFragment.append(errorCloneElement);
   bodyElement.append(errorFragment);
 }
 
