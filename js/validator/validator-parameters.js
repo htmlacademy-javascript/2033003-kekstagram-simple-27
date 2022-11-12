@@ -1,4 +1,0 @@
-const validatorParameters = {
-
-};
-export {validatorParameters};

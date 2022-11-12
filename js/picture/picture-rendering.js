@@ -9,6 +9,7 @@ function creatingPictureElement(data,params) {
     pictureElementClone.querySelector (params.urlClass).src = url;
     pictureElementClone.querySelector (params.likesClass).textContent = likes;
     pictureElementClone.querySelector (params.commentsClass).textContent = comments;
+
     pictureFragment.append (pictureElementClone);
   });
   pictureContainerElement.append(pictureFragment);

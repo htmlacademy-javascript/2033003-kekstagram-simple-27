@@ -15,6 +15,7 @@ const pictureScaleParameters = {
   decreaseButtonElement: 'scale__control--smaller',
   zoomButtonElement: 'scale__control--bigger',
   uploadPreviewClass: '.img-upload__preview',
+  uploadPreviewClassName: 'img-upload__preview',
 };
 
 const pictureEffectParameters = {
@@ -79,4 +80,5 @@ const pictureEffectParameters = {
     unit: ''
   }]
 };
+
 export { pictureParameters, pictureScaleParameters, pictureEffectParameters };

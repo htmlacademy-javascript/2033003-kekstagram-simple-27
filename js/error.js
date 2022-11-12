@@ -1,6 +1,6 @@
 import { pictureformParameters as params } from './picture_form/picture-form-parameters.js';
 import { addOnPictureFormEscKeydown } from './picture_form/picture-form.js';
-import { isEscapeKey,IsOutOfBoundClick, addEventListeners } from './util/util.js';
+import { isEscapeKey,IsOutOfBoundClick, addEventListeners, removeClassFromElement } from './util/util.js';
 
 const bodyElement = document.querySelector('body');
 const errorTemplateElement = document.querySelector(params.errorTemplateId);
@@ -47,8 +47,7 @@ const showErrorSaveAlert = () => {
 };
 
 const showErrorLoadAlert = () => {
-  const messageSection = document.querySelector('.success-load');
-  messageSection.classList.remove('visually-hidden');
+  removeClassFromElement(params.successLoadClass,'visually-hidden');
 };
 
 function closeErrorWindow() {

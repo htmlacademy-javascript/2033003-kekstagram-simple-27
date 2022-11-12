@@ -1,4 +1,4 @@
-import { isEscapeKey, verifyStringLength } from '../util/util.js';
+import { addEventListeners, addClassToElement, isEscapeKey, verifyStringLength, removeClassFromElement } from '../util/util.js';
 import { resetScale } from '../picture/picture-scale.js';
 import { resetEffects } from '../picture/picture-effect.js';
 import { pictureformParameters as params } from '../picture_form/picture-form-parameters.js';
@@ -6,17 +6,15 @@ import { sendData } from '../api.js';
 import { MIN_STRING_LENGTH, MAX_STRING_LENGTH } from '../CONSTANTS.js';
 import { showErrorSaveAlert } from '../error.js';
 
-const body = document.querySelector('body');
+const bodyElement = document.querySelector('body');
 const mainFormElement = document.querySelector(params.mainForm);
-const pictureFormElement = document.querySelector(params.pictureForm);
-const commentElement = document.querySelector(params.comment);
-
+const commentElement = document.querySelector(params.commentTextarea);
 
 function blockSubmitButton() {
-  document.querySelector(params.save).disabled = true;
+  document.querySelector(params.saveButton).disabled = true;
 }
 const unblockSubmitButton = () => {
-  document.querySelector(params.save).disabled = false;
+  document.querySelector(params.saveButton).disabled = false;
 };
 
 const setOnFormSubmit = (async (data) => {
@@ -32,7 +30,7 @@ const onSaveFormClick = (evt) => {
   }
 };
 const onPictureFormEscKeydown = (evt) => {
-  if (isEscapeKey(evt) && body.classList) {
+  if (isEscapeKey(evt) && bodyElement.classList) {
     evt.preventDefault();
     onCloseModalClick();
   }
@@ -56,35 +54,28 @@ function onCloseModalClick() {
   resetForm();
   removeOnPictureFormEscKeydown();
   document.querySelector(params.uploadFile).value = '';
-  pictureFormElement.classList.add('hidden');
-  body.classList.remove('modal-open');
+  addClassToElement(params.pictureForm,'hidden');
+  removeClassFromElement('body','modal-open');
 }
 
 function onOpenModalChange() {
-  pictureFormElement.classList.remove('hidden');
-  body.classList.add('modal-open');
+  removeClassFromElement(params.pictureForm,'hidden');
+  addClassToElement('body','modal-open');
   addOnPictureFormEscKeydown();
 }
-
-const addEventListeners = (arr) => {
-  arr.forEach((ele) => {
-    const htmlElement = document.querySelector(ele.selector);
-    htmlElement.addEventListener(ele.eventType, ele.cb);
-  });
-};
 
 const eventListeners = [{
   selector: params.cancelUpload,
   eventType: 'click',
-  cb: () => onCloseModalClick(),
+  cb: onCloseModalClick,
 }, {
   selector: params.uploadFile,
   eventType: 'change',
-  cb: () => onOpenModalChange(),
+  cb: onOpenModalChange,
 }, {
   selector: params.mainForm,
   eventType: 'submit',
-  cb: (evt) => onSaveFormClick(evt),
+  cb: onSaveFormClick,
 }];
 
 addEventListeners(eventListeners);

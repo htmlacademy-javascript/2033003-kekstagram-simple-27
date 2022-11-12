@@ -11,9 +11,9 @@ const scaleImage = (scaleValue = DEFAULT_SCALE) =>{
 };
 
 const onUploadScaleButtonClick = (evt) => {
-  const rowElements = Array.from(evt.currentTarget.children);
+  const rows = Array.from(evt.currentTarget.children);
   if (evt.target.tagName === 'BUTTON') {
-    rowElements.forEach((cellItem) => {
+    rows.forEach((cellItem) => {
 
       if (cellItem.classList.contains(params.controlValueElement)) {
         const pictureSizeValue = Number(cellItem.value.slice(0, -1));
