@@ -1417,8 +1417,6 @@ main {
   text-align: center;
   background-color: #e90000;
   display: grid;
-  grid-template-rows: auto;
-        grid-row-gap: 15px;
 }
 
 .form__error {
