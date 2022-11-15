@@ -4,12 +4,13 @@ function creatingPictureElement(data,params) {
   const pictureFragment = document.createDocumentFragment ();
 
   data.forEach(({url, likes, comments}) => {
-    const pictureElementClone = pictureTemplateElement.cloneNode(true);
+    const pictureCloneElement = pictureTemplateElement.cloneNode(true);
 
-    pictureElementClone.querySelector (params.urlClass).src = url;
-    pictureElementClone.querySelector (params.likesClass).textContent = likes;
-    pictureElementClone.querySelector (params.commentsClass).textContent = comments;
-    pictureFragment.append (pictureElementClone);
+    pictureCloneElement.querySelector (params.urlClass).src = url;
+    pictureCloneElement.querySelector (params.likesClass).textContent = likes;
+    pictureCloneElement.querySelector (params.commentsClass).textContent = comments;
+
+    pictureFragment.append (pictureCloneElement);
   });
   pictureContainerElement.append(pictureFragment);
 }
