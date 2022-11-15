@@ -35,7 +35,6 @@ const removeClassFromElement = (parameter, className) => {
 };
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
-
 const isOutOfBoundClick = (evt, element) => evt.composedPath().includes(document.querySelector(element));
 
 export {
