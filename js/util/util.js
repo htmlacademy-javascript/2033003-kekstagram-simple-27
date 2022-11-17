@@ -37,6 +37,9 @@ const removeClassFromElement = (parameter, className) => {
   htmlElement.classList.remove(className);
 };
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const isOutOfBoundClick = (evt, element) => evt.composedPath().includes(document.querySelector(element));
 
 export {
   returnRandomInteger, verifyStringLength, getRandomArrayElement,
