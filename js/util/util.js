@@ -9,7 +9,6 @@ const verifyStringLength = (string, minStringLength, maxStringLength) => {
   return string.length >= minStringLength && string.length <= maxStringLength || false;
 };
 
-
 const getRandomArrayElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
 const isEscapeKey = (evt) => evt.key === 'Escape';
 const isOutOfBoundClick = (evt, element) => evt.composedPath().includes(document.querySelector(element));
@@ -36,7 +35,6 @@ const removeClassFromElement = (parameter, className) => {
   const htmlElement = document.querySelector(parameter);
   htmlElement.classList.remove(className);
 };
-
 
 export {
   returnRandomInteger, verifyStringLength, getRandomArrayElement,
