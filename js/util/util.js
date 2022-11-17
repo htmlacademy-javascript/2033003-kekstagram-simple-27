@@ -5,25 +5,41 @@ const returnRandomInteger = (max, min = 0) => {
 };
 
 const verifyStringLength = (string, minStringLength, maxStringLength) => {
-  if (typeof string !== 'string' || typeof maxStringLength !== 'number') { return null; }
+  if (typeof string !== 'string' || typeof minStringLength !== 'number' || typeof maxStringLength !== 'number') { return null; }
   return string.length >= minStringLength && string.length <= maxStringLength || false;
 };
 
-const getRandomArrayElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const getRandomArrayElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-const IsOutOfBoundClick = (evt,element) => evt.composedPath().includes(document.querySelector(element));
-
-const addEventListeners = (arr) => {
-  arr.forEach((ele) => {
-    if(!ele.selector === 'document'){
-      const htmlElement = document.querySelector(ele.selector);
-      htmlElement.addEventListener(ele.eventType, ele.cb);
-    }else{
-      document.addEventListener(ele.eventType, ele.cb);
+const addEventListeners = (elements) => {
+  elements.forEach((element) => {
+    if (element.selector === 'document') {
+      document.addEventListener(element.eventType, element.cb);
+    } else if (typeof element.selector === 'object') {
+      element.selector.addEventListener(element.eventType, element.cb);
+    } else {
+      const htmlElement = document.querySelector(element.selector);
+      htmlElement.addEventListener(element.eventType, element.cb);
     }
   });
 };
 
-export { returnRandomInteger, verifyStringLength, getRandomArrayElement, isEscapeKey, IsOutOfBoundClick, addEventListeners};
+const addClassToElement = (parameter, className) => {
+  const htmlElement = document.querySelector(parameter);
+  htmlElement.classList.add(className);
+};
+
+const removeClassFromElement = (parameter, className) => {
+  const htmlElement = document.querySelector(parameter);
+  htmlElement.classList.remove(className);
+};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const isOutOfBoundClick = (evt, element) => evt.composedPath().includes(document.querySelector(element));
+
+export {
+  returnRandomInteger, verifyStringLength, getRandomArrayElement,
+  isEscapeKey, isOutOfBoundClick, addEventListeners,
+  addClassToElement, removeClassFromElement
+};

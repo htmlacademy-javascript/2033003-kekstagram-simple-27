@@ -2,8 +2,8 @@ import {pictureScaleParameters as params} from'./picture-parameters.js';
 import {DEFAULT_SCALE} from'../CONSTANTS.js';
 
 const uploadScaleElement = document.querySelector(params.scaleContainer);
-const maxPictureSizeValue = document.querySelector(`.${params.controlValueElement}`).getAttribute(params.maxLengthAttribute);
-const minPictureSizeValue = document.querySelector(`.${params.controlValueElement}`).getAttribute(params.minLengthAttribute);
+const maxPictureSizeValueElement = document.querySelector(`.${params.controlValueElement}`).getAttribute(params.maxLengthAttribute);
+const minPictureSizeValueElement = document.querySelector(`.${params.controlValueElement}`).getAttribute(params.minLengthAttribute);
 
 const scaleImage = (scaleValue = DEFAULT_SCALE) =>{
   document.querySelector(params.uploadPreviewClass).style.transform = `scale(${scaleValue / 100})`;
@@ -11,21 +11,22 @@ const scaleImage = (scaleValue = DEFAULT_SCALE) =>{
 };
 
 const onUploadScaleButtonClick = (evt) => {
-  const rowElements = Array.from(evt.currentTarget.children);
+  const rows = Array.from(evt.currentTarget.children);
   if (evt.target.tagName === 'BUTTON') {
-    rowElements.forEach((cellItem) => {
+    rows.forEach((cellItem) => {
 
       if (cellItem.classList.contains(params.controlValueElement)) {
         const pictureSizeValue = Number(cellItem.value.slice(0, -1));
         const stepSize = Number(cellItem.step);
+        const isDecreaseButton = evt.target.classList.contains(params.decreaseButtonElement);
 
-        if (evt.target.classList.contains(params.decreaseButtonElement)) {
-          if (pictureSizeValue > minPictureSizeValue) {
+        if (isDecreaseButton) {
+          if (pictureSizeValue > minPictureSizeValueElement) {
             const newValue = pictureSizeValue - stepSize;
             scaleImage(newValue);
           }
         } else {
-          if (pictureSizeValue < maxPictureSizeValue) {
+          if (pictureSizeValue < maxPictureSizeValueElement) {
             const newValue = pictureSizeValue + stepSize;
             scaleImage(newValue);
           }

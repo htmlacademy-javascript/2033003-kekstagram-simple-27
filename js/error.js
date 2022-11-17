@@ -1,21 +1,22 @@
 import { pictureformParameters as params } from './picture_form/picture-form-parameters.js';
-import { isEscapeKey,IsOutOfBoundClick, addEventListeners } from './util/util.js';
+import { addOnPictureFormEscKeydown } from './picture_form/picture-form.js';
+import { isEscapeKey,isOutOfBoundClick, addEventListeners, removeClassFromElement } from './util/util.js';
 
-const body = document.querySelector('body');
+const bodyElement = document.querySelector('body');
 const errorTemplateElement = document.querySelector(params.errorTemplateId);
-const errorTemplateClass = errorTemplateElement.content.querySelector(params.errorClass).cloneNode(true);
-const errorElementClone = errorTemplateClass.cloneNode(true);
-const closeErrorButton = errorElementClone.querySelector(params.errorButton);
+const errorCloneTemplateElement = errorTemplateElement.content.querySelector(params.errorClass).cloneNode(true);
+const errorCloneElement = errorCloneTemplateElement.cloneNode(true);
+const closeErrorButtonElement = errorCloneElement.querySelector(params.errorButton);
 const errorFragment = document.createDocumentFragment();
 
 const eventListeners = [{
-  selector: closeErrorButton,
+  selector: closeErrorButtonElement,
   eventType: 'click',
   cb: onHideErrorClick,
 }, {
   selector: 'document',
   eventType: 'keydown',
-  cb: onPopupEscKeydown,
+  cb: onErrorElementEscKeydown,
 }, {
   selector: 'document',
   eventType: 'click',
@@ -27,7 +28,7 @@ function onHideErrorClick(evt){
   closeErrorWindow();
 }
 
-function onPopupEscKeydown(evt){
+function onErrorElementEscKeydown(evt){
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeErrorWindow();
@@ -35,30 +36,30 @@ function onPopupEscKeydown(evt){
 }
 
 function onOutOfBoundClick(evt) {
-  const withinBoundaries = IsOutOfBoundClick(evt,params.errorInner);
-  if (!withinBoundaries) {
+  if (!isOutOfBoundClick(evt, params.errorInner)) {
     closeErrorWindow();
   }
 }
 
-const showSaveErrorAlert = () => {
+const showErrorSaveAlert = () => {
   addEventListeners(eventListeners);
   showErrorWindow();
 };
 
 const showErrorLoadAlert = () => {
-  const messageSection = document.querySelector('.success-load');
-  messageSection.classList.remove('visually-hidden');
+  removeClassFromElement(params.successLoadClass,'visually-hidden');
 };
 
 function closeErrorWindow() {
-  body.removeChild(errorElementClone);
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  bodyElement.removeChild(errorCloneElement);
+  document.removeEventListener('keydown', onErrorElementEscKeydown);
   document.removeEventListener('click', onOutOfBoundClick);
   document.removeEventListener('click', onHideErrorClick);
+  addOnPictureFormEscKeydown();
 }
 function showErrorWindow() {
-  errorFragment.append(errorElementClone);
-  body.append(errorFragment);
+  errorFragment.append(errorCloneElement);
+  bodyElement.append(errorFragment);
 }
-export { showSaveErrorAlert, showErrorLoadAlert };
+
+export { showErrorSaveAlert, showErrorLoadAlert};

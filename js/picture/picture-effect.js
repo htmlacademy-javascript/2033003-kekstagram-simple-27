@@ -1,11 +1,12 @@
 import { pictureEffectParameters as paramsEffect} from '../picture/picture-parameters.js';
 import { pictureScaleParameters as paramsScale} from '../picture/picture-parameters.js';
 import { pictureformParameters as paramsForm} from '../picture_form/picture-form-parameters.js';
+import { addClassToElement, removeClassFromElement } from '../util/util.js';
 
-const image = document.querySelector(paramsScale.uploadPreviewClass);
-const form = document.querySelector(paramsForm.mainForm);
+const imageElement = document.querySelector(paramsScale.uploadPreviewClass);
+const formElement = document.querySelector(paramsForm.mainForm);
 const sliderElement = document.querySelector(paramsEffect.sliderClass);
-const effectLevel = document.querySelector(paramsEffect.sliderValue);
+const effectLevelElement = document.querySelector(paramsEffect.sliderValue);
 
 const DEFAULT_EFFECT = paramsEffect.effects[0];
 let chosenEffect = DEFAULT_EFFECT;
@@ -13,7 +14,7 @@ let chosenEffect = DEFAULT_EFFECT;
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
 const updateSlider = () =>{
-  sliderElement.classList.remove('hidden');
+  removeClassFromElement(paramsEffect.sliderClass,'hidden');
   sliderElement.noUiSlider.updateOptions({
     range: {
       min:chosenEffect.min,
@@ -35,7 +36,7 @@ const updateSlider = () =>{
   });
 
   if(isDefault()){
-    sliderElement.classList.add('hidden');
+    addClassToElement(paramsEffect.sliderClass,'hidden');
   }
 };
 
@@ -48,16 +49,16 @@ const onFormChange = (evt) =>{
 };
 
 const onSliderUpdate = () =>{
-  image.style.filter = 'none';
-  image.className = 'img-upload__preview';
-  effectLevel.value = '';
+  imageElement.style.filter = 'none';
+  imageElement.className = paramsScale.uploadPreviewClassName;
+  effectLevelElement.value = '';
   if(isDefault()){
     return;
   }
   const sliderValue = sliderElement.noUiSlider.get();
-  image.style.filter = `${chosenEffect.filter}(${sliderValue}${chosenEffect.unit})`;
-  image.classList.add(`effects__preview--${chosenEffect.name}`);
-  effectLevel.value = sliderValue;
+  imageElement.style.filter = `${chosenEffect.filter}(${sliderValue}${chosenEffect.unit})`;
+  addClassToElement(paramsScale.uploadPreviewClass,`effects__preview--${chosenEffect.name}`);
+  effectLevelElement.value = sliderValue;
 };
 
 const resetEffects = () =>{
@@ -74,8 +75,10 @@ noUiSlider.create(sliderElement,{
   step: DEFAULT_EFFECT.step,
   connect:'lower',
 });
+
 updateSlider();
 
-form.addEventListener('change', onFormChange);
+formElement.addEventListener('change', onFormChange);
 sliderElement.noUiSlider.on('update', onSliderUpdate);
+
 export {resetEffects};
