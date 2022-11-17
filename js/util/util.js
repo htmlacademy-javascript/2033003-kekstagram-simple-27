@@ -10,6 +10,8 @@ const verifyStringLength = (string, minStringLength, maxStringLength) => {
 };
 
 const getRandomArrayElement = (elements) => elements[Math.floor(Math.random() * elements.length)];
+const isEscapeKey = (evt) => evt.key === 'Escape';
+const isOutOfBoundClick = (evt, element) => evt.composedPath().includes(document.querySelector(element));
 
 const addEventListeners = (elements) => {
   elements.forEach((element) => {
@@ -34,9 +36,6 @@ const removeClassFromElement = (parameter, className) => {
   htmlElement.classList.remove(className);
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-const isOutOfBoundClick = (evt, element) => evt.composedPath().includes(document.querySelector(element));
 
 export {
   returnRandomInteger, verifyStringLength, getRandomArrayElement,
