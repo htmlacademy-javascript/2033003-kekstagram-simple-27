@@ -1,5 +1,5 @@
 import {pictureScaleParameters as params} from'./picture-parameters.js';
-import {DEFAULT_SCALE} from'../CONSTANTS.js';
+import {DEFAULT_SCALE} from'../constants.js';
 
 const uploadScaleElement = document.querySelector(params.scaleContainer);
 const maxPictureSizeValueElement = document.querySelector(`.${params.controlValueElement}`).getAttribute(params.maxLengthAttribute);
