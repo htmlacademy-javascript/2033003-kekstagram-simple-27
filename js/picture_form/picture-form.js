@@ -3,7 +3,7 @@ import { resetScale } from '../picture/picture-scale.js';
 import { resetEffects } from '../picture/picture-effect.js';
 import { pictureformParameters as params } from '../picture_form/picture-form-parameters.js';
 import { sendData } from '../api.js';
-import { MIN_STRING_LENGTH, MAX_STRING_LENGTH } from '../constants.js';
+import { MIN_STRING_LENGTH, MAX_STRING_LENGTH } from '../constant.js';
 import { showErrorSaveAlert } from '../error.js';
 
 const mainFormElement = document.querySelector(params.mainForm);
